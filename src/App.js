@@ -93,8 +93,9 @@ function App() {
           <tfoot>
             <tr>
               <th>Total</th>
+              <th>{finalInterestAmount}</th>
               <th>{finalAmount}</th>
-              <th>{finalInterestAmount}</th></tr>
+            </tr>
           </tfoot>
         </table>
         }
