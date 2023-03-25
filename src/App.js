@@ -7,6 +7,8 @@ function App() {
   const [rate, setRate] = useState(null);
   const [time, setTime] = useState(null);
   const [result, setResult] = useState(false);
+  const [finalAmount, setFinalAmount] = useState(null);
+  const [finalInterestAmount, setFinalInterestAmount] = useState(null);
   const handleInputChange = (e) => {
     setResult(false)
     const { id, value } = e.target;
@@ -25,16 +27,15 @@ function App() {
 
   const handleSubmit  = () => {
     setResult(true)
-    console.log(amount, rate, time);
     let ammountPlusInterest = parseFloat(amount);
     let totalInterest = 0;
     for (let t = 1; t <= time * 12; t++) {
       const interest = ammountPlusInterest * rate / 100;
-      console.log(`${t} ${ammountPlusInterest.toFixed(2)} : ${interest.toFixed(2)}`);
       ammountPlusInterest += interest;
       totalInterest += interest;
     }
-    console.log("Amount After 5 years: "+ammountPlusInterest.toFixed(2)+", total interest After 5 years: "+totalInterest.toFixed(2));
+    setFinalAmount(ammountPlusInterest.toFixed(2))
+      setFinalInterestAmount(totalInterest.toFixed(2))
   }
 
   const printCalulation = () => {
@@ -42,14 +43,13 @@ function App() {
     let totalInterest = 0;
     return [ ...Array(time*12).keys() ].map(f => {
       const interest = ammountPlusInterest * rate / 100;
-      console.log(`${f+1} ${ammountPlusInterest.toFixed(2)} : ${interest.toFixed(2)}`);
       ammountPlusInterest += interest;
+      totalInterest += interest;
       return (<tr>
       <td>{f+1}</td>
       <td>{interest.toFixed(2)}</td>
       <td>{ammountPlusInterest.toFixed(2)}</td>
     </tr>);
-      
   })
   }
   return (
@@ -90,6 +90,12 @@ function App() {
           <tbody>
           {printCalulation()}
           </tbody>
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <th>{finalAmount}</th>
+              <th>{finalInterestAmount}</th></tr>
+          </tfoot>
         </table>
         }
       </main>

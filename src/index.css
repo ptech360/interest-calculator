@@ -34,3 +34,6 @@ table td, table th{
   border: 1px solid; 
   padding: 8px;
 }
+table th{
+  font-weight: 600;
+}
